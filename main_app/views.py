@@ -8,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .serializers import VacationSerializer
 
 
@@ -37,3 +39,44 @@ class Vacactions(View):
 class VacationViewSet(viewsets.ModelViewSet):
     queryset = Vacation.objects.all()
     serializer_class = VacationSerializer
+
+
+@api_view(['GET'])
+def getVacations(request):
+    vacations = Vacation.objects.all()
+    serializer = VacationSerializer(vacations, many=True)
+    print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def vacationsDetail(request, pk):
+    vacation = Vacation.objects.get(vacation_id=pk)
+    serializer = VacationSerializer(vacation, many=False)
+    print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def createVacations(request):
+    serializer = VacationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def updateVacations(request, pk):
+    vacation = Vacation.objects.get(vacation_id=pk)
+    print(request.data.get("place"))
+    serializer = VacationSerializer(instance=vacation, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def deleteVacations(request, pk):
+    vacation = Vacation.objects.get(vacation_id=pk)
+    vacation.delete()
+    return Response('item successfully deleeted')
