@@ -15,3 +15,16 @@ class Vacation(models.Model):
 
     class Meta:
         ordering = ['days_off']
+
+
+class Activities(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    vacation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']

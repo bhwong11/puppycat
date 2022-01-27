@@ -15,4 +15,12 @@ urlpatterns = [
     path('vacationsCreate/', views.createVacations, name="createVacations"),
     path('vacationsUpdate/<str:pk>', views.updateVacations, name="updateVacations"),
     path('vacationsDelete/<str:pk>', views.deleteVacations, name="deleteVacations"),
+    path('activitiesList/', views.getActivities, name="getActivities"),
+    path('activitiesDetail/<str:pk>',
+         views.activitiesDetail, name="activitiesDetail"),
+    path('activitiesCreate/', views.createActivities, name="createActivities"),
+    path('activitiesUpdate/<str:pk>',
+         views.updateActivities, name="updateActivities"),
+    path('activitiesDelete/<str:pk>',
+         views.deleteActivities, name="deleteActivities"),
 ]
