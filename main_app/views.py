@@ -68,10 +68,14 @@ def createVacations(request):
 @api_view(['POST'])
 def updateVacations(request, pk):
     vacation = Vacation.objects.get(vacation_id=pk)
-    print(request.data.get("place"))
     serializer = VacationSerializer(instance=vacation, data=request.data)
     if serializer.is_valid():
         serializer.save()
+    else:
+        print('Not Valid')
+    for key, value in serializer.data.items():
+        setattr(vacation, key, value)
+        vacation.save()
     return Response(serializer.data)
 
 
