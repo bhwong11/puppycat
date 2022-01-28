@@ -3,6 +3,13 @@ from rest_framework import serializers
 from .models import Vacation, Activities
 
 
+class ActivitiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activities
+        fields = '__all__'
+        depth = 1
+
+
 class VacationSerializer(serializers.Serializer):
     place = serializers.CharField(max_length=200)
     days_off = serializers.IntegerField()
@@ -22,10 +29,3 @@ class VacationSerializer(serializers.Serializer):
     # class Meta:
     #    model = Vacation
     #    fields = ('vacation_id', 'place', 'days_off', 'cool')
-
-
-class ActivitiesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Activities
-        fields = '__all__'
-        depth = 1

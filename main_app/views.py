@@ -59,8 +59,10 @@ def vacationsDetail(request, pk):
 
 @api_view(['POST'])
 def createVacations(request):
+    print('REQUEST DATA', request.data)
     serializer = VacationSerializer(data=request.data)
     if serializer.is_valid():
+        print('CREATE!!!')
         serializer.save()
     return Response(serializer.data)
 
