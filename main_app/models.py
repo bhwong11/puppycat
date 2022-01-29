@@ -20,15 +20,16 @@ class Vacation(models.Model):
 class Activities(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
-    vacation = models.ForeignKey(Vacation, related_name="activities", on_delete=models.CASCADE)
+    vacation = models.ForeignKey(
+        Vacation, related_name="activities", on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name
-    
-    @property
-    def activities(self):
-        return self.objects.all()
+
+    # @property
+    # def activities(self):
+    #    return self.objects.all()
 
     class Meta:
         ordering = ['name']
