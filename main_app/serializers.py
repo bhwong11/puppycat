@@ -10,22 +10,23 @@ class ActivitiesSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class VacationSerializer(serializers.Serializer):
-    place = serializers.CharField(max_length=200)
-    days_off = serializers.IntegerField()
-    cool = serializers.BooleanField()
+class VacationSerializer(serializers.ModelSerializer):
+    #place = serializers.CharField(max_length=200)
+    #days_off = serializers.IntegerField()
+    #cool = serializers.BooleanField()
+    activities = ActivitiesSerializer(many=True)
 
-    def create(self, validated_data):
-        return Vacation.objects.create(**validated_data)
+    #    def create(self, validated_data):
+    #        return Vacation.objects.create(**validated_data)
+    #
+    #    def update(self, instance, validated_data):
+    #        print('VALIDATED DATA', validated_data)
+    #        instance.place = validated_data.get('place', instance.place)
+    #        instance.days_off = validated_data.get('days_off', instance.days_off)
+    #        instance.cool = validated_data.get('cool', instance.cool)
+    #        instance.save()
+    #        return instance
 
-    def update(self, instance, validated_data):
-        print('VALIDATED DATA', validated_data)
-        instance.place = validated_data.get('place', instance.place)
-        instance.days_off = validated_data.get('days_off', instance.days_off)
-        instance.cool = validated_data.get('cool', instance.cool)
-        instance.save()
-        return instance
-
-    # class Meta:
-    #    model = Vacation
-    #    fields = ('vacation_id', 'place', 'days_off', 'cool')
+    class Meta:
+        model = Vacation
+        fields = ('vacation_id', 'place', 'days_off', 'cool', 'activities')
